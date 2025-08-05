@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>💕 Scrapbook Cintaa Kita UwU 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent; /* hilangkan blue touch */
+      font-family: 'Fredoka', cursive;
+      user-select: none;
+    }
+    body {
+      background: linear-gradient(135deg, #ffe4ec, #fff0f5);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      color: #d6336c;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #ff69b4;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 6px #ffc0cb;
+      animation: heartbeat 1.5s infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 720px;
+    }
+    .card {
+      background: #fff0f5;
+      border: 3px dashed #ffb6c1;
+      border-radius: 24px;
+      box-shadow: 0 6px 15px rgba(255,182,193,0.3);
+      padding: 20px;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .card:hover {
+      transform: scale(1.07) rotate(2deg);
+      box-shadow: 0 10px 20px rgba(255,105,180,0.6);
+    }
+    .card img {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
+      margin-bottom: 12px;
+      user-select: none;
+      filter: drop-shadow(1px 1px 1px #ffb6c1);
+      transition: transform 0.3s ease;
+    }
+    .card:hover img {
+      transform: rotate(-10deg) scale(1.1);
+    }
+    .card span {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #d6336c;
+      display: block;
+      user-select: none;
+      text-shadow: 1px 1px 2px #ffc0cb;
+    }
+    /* Bubble hearts floating */
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: #ff69b4;
+      clip-path: polygon(
+        50% 0%, 61% 13%, 75% 13%, 85% 24%, 85% 38%, 
+        75% 50%, 50% 78%, 25% 50%, 15% 38%, 15% 24%, 25% 13%, 39% 13%
+      );
+      animation: floatUp 4s linear forwards;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-200px) scale(0.5);
+        opacity: 0;
+      }
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #ff69b4cc;
+      user-select: none;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💕 Scrapbook Cintaa Kita UwU 💕</h1>
+
+  <div class="grid">
+    <div class="card" onclick="playClick(); location.href='jurnal.html'">
+      <img src="https://i.ibb.co/DVbrk90/jurnal.png" alt="Jurnal" />
+      <span>📔 Jurnal</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='galeri.html'">
+      <img src="https://i.ibb.co/GtkxzZZ/galeri.png" alt="Galeri" />
+      <span>📸 Galeri</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='lagu.html'">
+      <img src="https://i.ibb.co/T1Xs6hL/music.png" alt="Cari Lagu" />
+      <span>🎵 Cari Lagu</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='gambar.html'">
+      <img src="https://i.ibb.co/5Lbt5QW/pinterest.png" alt="Cari Gambar" />
+      <span>🖼️ Cari Gambar</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='botcinta.html'">
+      <img src="https://i.ibb.co/mvMv3jw/botcinta.png" alt="Bot Cinta" />
+      <span>🤖 Chatbot Cinta</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='countdown.html'">
+      <img src="https://i.ibb.co/kqSkzxg/countdown.png" alt="Countdown" />
+      <span>⏳ Countdown</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='wishlist.html'">
+      <img src="https://i.ibb.co/yhh8mQY/wishlist.png" alt="Wishlist" />
+      <span>🎁 Wishlist</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='katacinta.html'">
+      <img src="https://i.ibb.co/k0z3Lpd/katacinta.png" alt="Kata Cinta" />
+      <span>💬 Kata Cinta</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='cerita.html'">
+      <img src="https://i.ibb.co/TLkNd3s/cerita.png" alt="Cerita Kita" />
+      <span>📖 Cerita Kita</span>
+    </div>
+    <div class="card" onclick="playClick(); location.href='lokasi.html'">
+      <img src="https://i.ibb.co/F8bnSry/lokasi.png" alt="Lokasi Couple" />
+      <span>📍 Lokasi Couple</span>
+    </div>
+  </div>
+
+  <footer>Made with 💖 and lots of UwU by Sayangg for Ayangg</footer>
+
+  <audio id="clickSound" src="https://www.myinstants.com/media/sounds/kawaii.mp3" preload="auto"></audio>
+
+  <script>
+    function playClick() {
+      const audio = document.getElementById('clickSound');
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    // Buat animasi hati floating uwu
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.bottom = '-30px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+    setInterval(createHeart, 800);
+  </script>
+</body>
+</html>
