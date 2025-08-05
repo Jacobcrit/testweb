@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jurnal Cinta UwU 💌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(to bottom right, #ffe4f0, #fff0fa);
+      padding: 20px;
+      text-align: center;
+      color: #d6336c;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 90%;
+      height: 120px;
+      padding: 15px;
+      border-radius: 15px;
+      border: 2px dashed #ff99c8;
+      font-family: 'Comic Neue', cursive;
+      font-size: 16px;
+      background-color: #fffafc;
+      resize: none;
+      outline: none;
+    }
+
+    .upload-label {
+      display: inline-block;
+      padding: 12px 25px;
+      background: #ffb6d9;
+      color: white;
+      border-radius: 25px;
+      font-size: 16px;
+      font-family: 'Comic Neue', cursive;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255,182,193,0.5);
+      transition: background-color 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .upload-label:hover {
+      background-color: #ffaed6;
+      transform: scale(1.05);
+    }
+
+    #jurnalPhoto {
+      display: none;
+    }
+
+    #photoPreview {
+      margin-top: 20px;
+      max-width: 90%;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(255,182,193,0.4);
+    }
+
+    .save-btn {
+      margin-top: 20px;
+      background-color: #ff69b4;
+      border: none;
+      padding: 12px 30px;
+      color: white;
+      border-radius: 30px;
+      font-size: 18px;
+      font-family: 'Comic Neue', cursive;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(255,105,180,0.4);
+    }
+
+    .save-btn:hover {
+      background-color: #ff85c1;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>📓 Jurnal Cinta Hari Ini 💖</h1>
+
+  <textarea id="jurnalText" placeholder="Tulis cerita cinta hari ini di sini yaa~ ✍️💞"></textarea><br>
+
+  <label for="jurnalPhoto" class="upload-label">📸 Pilih Foto Gemes</label>
+  <input type="file" id="jurnalPhoto" accept="image/*" />
+  <br>
+  <img id="photoPreview" style="display:none;" />
+
+  <br><button class="save-btn" onclick="simpanJurnal()">💾 Simpan Jurnal</button>
+
+  <audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2023/03/29/audio_4b47a730d5.mp3?filename=pop-up-kawaii-147043.mp3" preload="auto"></audio>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwhuuoF7HVMFK9QDlXmQn5SxBnQEdSCg0",
+      authDomain: "scrapbook-cinta-kita.firebaseapp.com",
+      projectId: "scrapbook-cinta-kita",
+      storageBucket: "scrapbook-cinta-kita.appspot.com",
+      messagingSenderId: "85785615120",
+      appId: "1:85785615120:web:7abd9532115674d8832395",
+      measurementId: "G-1FJ38Z4WXZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const fileInput = document.getElementById('jurnalPhoto');
+    const preview = document.getElementById('photoPreview');
+    const clickSound = document.getElementById('clickSound');
+    let currentUserId = null;
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentUserId = user.uid;
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    fileInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+      }
+    });
+
+    async function simpanJurnal() {
+      clickSound.play();
+      const text = document.getElementById('jurnalText').value;
+      const file = document.getElementById('jurnalPhoto').files[0];
+
+      if (!text && !file) {
+        alert("Tulis dulu ayangg atau unggah foto lucuu yaa 💌");
+        return;
+      }
+
+      let photoURL = "";
+
+      if (file) {
+        const storageRef = ref(storage, `jurnal/${currentUserId}_${Date.now()}.jpg`);
+        await uploadBytes(storageRef, file);
+        photoURL = await getDownloadURL(storageRef);
+      }
+
+      await addDoc(collection(db, "jurnal"), {
+        uid: currentUserId,
+        text,
+        photoURL,
+        timestamp: serverTimestamp()
+      });
+
+      alert("Jurnal cintamu udah disimpan di Firebase uwuuu 💖");
+      document.getElementById('jurnalText').value = "";
+      fileInput.value = "";
+      preview.style.display = "none";
+    }
+
+    window.simpanJurnal = simpanJurnal;
+  </script>
+</body>
+</html>

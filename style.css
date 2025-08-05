@@ -1,0 +1,21 @@
+.pemandangan-uwu {
+  margin-top: 50px;
+  padding: 20px;
+  background: #fff0f7;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 192, 203, 0.5);
+}
+
+.pemandangan-uwu img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.pemandangan-uwu p {
+  font-family: 'Comic Sans MS', cursive;
+  color: #ff69b4;
+  font-size: 18px;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar Uwuu 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka One', cursive;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(270deg, #ffe6f0, #ffddee, #fff0f8);
+      background-size: 600% 600%;
+      animation: gradientMove 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%}
+      50% {background-position: 100% 50%}
+      100% {background-position: 0% 50%}
+    }
+
+    .box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 10px 20px rgba(255,105,180,0.3);
+      text-align: center;
+      width: 320px;
+      position: relative;
+    }
+
+    .box h2 {
+      color: #ff69b4;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #ffc0cb;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      box-shadow: 0 5px 10px rgba(255,182,193,0.4);
+    }
+
+    .gif-uwu {
+      width: 80px;
+      position: absolute;
+      top: -40px;
+      left: calc(50% - 40px);
+    }
+
+    .credit {
+      font-size: 12px;
+      margin-top: 20px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <img src="https://media.tenor.com/w4UdfGp3QmoAAAAi/hello-kitty.gif" alt="uwu gif" class="gif-uwu"/>
+    <h2>Daftar Yuk Uwuuu 💕</h2>
+    <input type="email" id="email" placeholder="Email Ayang 💌" />
+    <input type="password" id="password" placeholder="Password Rahasia 😳" />
+    <button id="registerBtn">Daftarkan Aku 💖</button>
+    <p class="credit">Scrapbook by Kamu & Ayang ✨</p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwhuuoF7HVMFK9QDlXmQn5SxBnQEdSCg0",
+      authDomain: "scrapbook-cinta-kita.firebaseapp.com",
+      projectId: "scrapbook-cinta-kita",
+      storageBucket: "scrapbook-cinta-kita.appspot.com",
+      messagingSenderId: "85785615120",
+      appId: "1:85785615120:web:7abd9532115674d8832395"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("registerBtn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Yeaayy berhasil daftar uwuuu 💘");
+        window.location.href = "home.html";
+      } catch (error) {
+        alert("Gagal daftar: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

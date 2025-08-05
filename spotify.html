@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lagu Kesukaan Kita 💖</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom, #fff0f5, #ffe4f0);
+      margin: 0; padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #d6336c;
+      margin-bottom: 20px;
+    }
+    .search-box {
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 15px;
+      border: 1px solid #ffb6c1;
+      width: 80%;
+      max-width: 400px;
+      font-size: 16px;
+      font-family: 'Comic Sans MS', cursive;
+      outline: none;
+    }
+    .song-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    .song {
+      position: relative;
+    }
+    iframe {
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(255,182,193,0.5);
+      width: 90%;
+      max-width: 400px;
+      height: 100px;
+    }
+    .save-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff69b4;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .playlist {
+      margin-top: 40px;
+    }
+    .playlist iframe {
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(255, 182, 193, 0.6);
+      width: 90%;
+      max-width: 400px;
+      height: 352px;
+    }
+    .footer-gif {
+      margin-top: 30px;
+    }
+    .footer-gif img {
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #ffb6c1;
+    }
+    .history {
+      margin-top: 30px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .history h2 {
+      color: #ff69b4;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .history ul {
+      list-style: none;
+      padding: 0;
+      color: #d6336c;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎶 Lagu Kesukaan Kita 💕</h1>
+
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Cari lagu..." oninput="searchSongs()" />
+  </div>
+
+  <div class="song-list" id="songList">
+    <div class="song" data-title="0PK3Hkt0ybZIkBq6cs6Z81">
+      <iframe src="https://open.spotify.com/embed/track/0PK3Hkt0ybZIkBq6cs6Z81?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <button class="save-btn" onclick="saveFavorite('0PK3Hkt0ybZIkBq6cs6Z81')">💾</button>
+    </div>
+    <div class="song" data-title="7fI9oxvz4kPSAtEImlXu6M">
+      <iframe src="https://open.spotify.com/embed/track/7fI9oxvz4kPSAtEImlXu6M?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <button class="save-btn" onclick="saveFavorite('7fI9oxvz4kPSAtEImlXu6M')">💾</button>
+    </div>
+    <div class="song" data-title="0mZBXkJqykknHpsrU57RYZ">
+      <iframe src="https://open.spotify.com/embed/track/0mZBXkJqykknHpsrU57RYZ?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <button class="save-btn" onclick="saveFavorite('0mZBXkJqykknHpsrU57RYZ')">💾</button>
+    </div>
+    <div class="song" data-title="4PVUhkjj891nHZbABdYNrQ">
+      <iframe src="https://open.spotify.com/embed/track/4PVUhkjj891nHZbABdYNrQ?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <button class="save-btn" onclick="saveFavorite('4PVUhkjj891nHZbABdYNrQ')">💾</button>
+    </div>
+    <div class="song" data-title="44n4jDnEUN7HI9EsUJZM7C">
+      <iframe src="https://open.spotify.com/embed/track/44n4jDnEUN7HI9EsUJZM7C?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <button class="save-btn" onclick="saveFavorite('44n4jDnEUN7HI9EsUJZM7C')">💾</button>
+    </div>
+    <div class="song" data-title="5drW6PGRxkE6MxttzVLNk5">
+      <iframe src="https://open.spotify.com/embed/track/5drW6PGRxkE6MxttzVLNk5?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <button class="save-btn" onclick="saveFavorite('5drW6PGRxkE6MxttzVLNk5')">💾</button>
+    </div>
+    <div class="song" data-title="5NmjnghJGJRFg34KGGx8O0">
+      <iframe src="https://open.spotify.com/embed/track/5NmjnghJGJRFg34KGGx8O0?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <button class="save-btn" onclick="saveFavorite('5NmjnghJGJRFg34KGGx8O0')">💾</button>
+    </div>
+  </div>
+
+  <div class="playlist">
+    <h2>🎧 Playlist Spesial dari Ayang 💓</h2>
+    <iframe src="https://open.spotify.com/embed/playlist/6i8CpscXgoKwxpTnh43Ugv?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe style="border-radius:12px;margin-top:20px;" src="https://open.spotify.com/embed/playlist/6Jg7MsFAj2jxc4joRsJ89C?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+
+  <div class="footer-gif">
+    <img src="https://media.tenor.com/1WkYoKRO6QkAAAAC/sea-waves.gif" alt="laut gif uwu" />
+    <p style="font-size: 16px; color:#d6336c;">Sambil dengerin lagu, bayangin duduk bareng ayang di pinggir laut 🥺💕</p>
+  </div>
+
+  <div class="history" id="history">
+    <h2>❤️ Favoritmu</h2>
+    <ul id="favList"></ul>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwhuuoF7HVMFK9QDlXmQn5SxBnQEdSCg0",
+      authDomain: "scrapbook-cinta-kita.firebaseapp.com",
+      projectId: "scrapbook-cinta-kita",
+      storageBucket: "scrapbook-cinta-kita.appspot.com",
+      messagingSenderId: "85785615120",
+      appId: "1:85785615120:web:7abd9532115674d8832395"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Search
+    function searchSongs() {
+      const input = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.song').forEach(song => {
+        const title = song.getAttribute('data-title').toLowerCase();
+        song.style.display = title.includes(input) ? 'flex' : 'none';
+      });
+    }
+
+    window.searchSongs = searchSongs;
+
+    // Favorites
+    async function saveFavorite(id) {
+      try {
+        await addDoc(collection(db, 'lagu-favorit'), { trackId: id, addedAt: new Date() });
+        loadFavorites();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    window.saveFavorite = saveFavorite;
+
+    async function loadFavorites() {
+      const favList = document.getElementById('favList');
+      favList.innerHTML = '';
+      const snapshot = await getDocs(collection(db, 'lagu-favorit'));
+      snapshot.forEach(doc => {
+        const li = document.createElement('li');
+        li.textContent = doc.data().trackId;
+        favList.appendChild(li);
+      });
+    }
+
+    loadFavorites();
+  </script>
+</body>
+</html>
+

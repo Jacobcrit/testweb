@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galeri Cinta 💖</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #ffe4f0, #fff0f6);
+      font-family: 'Comic Sans MS', cursive;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .upload-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 0 auto 30px auto;
+      box-shadow: 0 4px 10px rgba(255,182,193,0.4);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      display: inline-block;
+      background: #ff69b4;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 4px 10px rgba(255,105,180,0.4);
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.6em;
+      }
+      label {
+        font-size: 14px;
+        padding: 10px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>📸 Galeri Cintaa Kita UwU 💞</h1>
+  <div class="upload-box">
+    <label for="imageUpload">💗 Pilih Foto Cintaa</label>
+    <input type="file" id="imageUpload" accept="image/*">
+  </div>
+  <div class="gallery" id="gallery"></div>
+
+  <audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2023/03/29/audio_4b47a730d5.mp3?filename=pop-up-kawaii-147043.mp3" preload="auto"></audio>
+
+  <script type="module">
+    // Firebase Imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL,
+      listAll
+    } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwhuuoF7HVMFK9QDlXmQn5SxBnQEdSCg0",
+      authDomain: "scrapbook-cinta-kita.firebaseapp.com",
+      projectId: "scrapbook-cinta-kita",
+      storageBucket: "scrapbook-cinta-kita.appspot.com",
+      messagingSenderId: "85785615120",
+      appId: "1:85785615120:web:7abd9532115674d8832395"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    const gallery = document.getElementById('gallery');
+    const clickSound = document.getElementById('clickSound');
+
+    async function loadImages() {
+      const listRef = ref(storage, 'galeri/');
+      const result = await listAll(listRef);
+
+      gallery.innerHTML = "";
+      result.items.forEach(async (itemRef) => {
+        const url = await getDownloadURL(itemRef);
+        const img = document.createElement('img');
+        img.src = url;
+        gallery.appendChild(img);
+      });
+    }
+
+    document.getElementById('imageUpload').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      clickSound.play();
+
+      const fileRef = ref(storage, 'galeri/' + Date.now() + '-' + file.name);
+      await uploadBytes(fileRef, file);
+      await loadImages();
+    });
+
+    loadImages();
+  </script>
+</body>
+</html>

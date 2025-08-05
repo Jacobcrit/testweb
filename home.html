@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scrapbook Cintaa Kita 💖</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+    body {
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(to bottom, #ffe4f0, #fff0f5);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    h1 {
+      color: #d6336c;
+      margin-bottom: 30px;
+      text-align: center;
+      text-shadow: 1px 1px #fff;
+      font-size: 26px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .grid button {
+      background-color: #ffc4dd;
+      border: none;
+      border-radius: 30px;
+      padding: 20px 10px;
+      font-size: 14px;
+      color: #fff;
+      cursor: pointer;
+      font-family: 'Comic Neue', cursive;
+      box-shadow: 0 6px 12px rgba(255, 182, 193, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .grid button:hover {
+      transform: scale(1.05);
+      background-color: #ff9fc2;
+    }
+
+    .grid button img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media screen and (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+      .grid button {
+        padding: 15px 8px;
+        font-size: 13px;
+      }
+      .grid button img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Scrapbook Cintaa Kita 💖</h1>
+
+  <div class="grid">
+    <button onclick="goTo('galeri.html')">
+      <img src="3682496b6bb48ca7d64242a08157019f.jpg" alt="Galeri" />
+      📸 Galeri
+    </button> 
+    <button onclick="goTo('spotify.html')">🎶 Lagu Kita</button>
+    <button onclick="goTo('cari_lagu.html')">
+      <img src="1dfb4fd54b8833fe5d90dda319469421.jpg" alt="Cari Lagu" />
+      🎵 Cari Lagu
+    </button>
+    <button onclick="goTo('cari_gambar.html')">
+      <img src="dbd0e23a8fd1da7d1377ac5674de58d9.jpg" alt="Gambar" />
+      🖼️ Cari Gambar
+    </button>
+    <button onclick="goTo('chatbot.html')">
+      <img src="img/hk4.gif" alt="Chatbot" />
+      💬 Chatbot Cinta
+    </button>
+    <button onclick="goTo('kalender.html')">
+      <img src="e42777748b151db796bf9c9e2a94a248.jpg" alt="Kalender" />
+      🗓️ Kalender Cinta
+    </button>
+    <button onclick="goTo('wishlist.html')">
+      <img src="2d49f0eb767593435c9ff56df489bec0.jpg" alt="Wishlist" />
+      📌 Wishlist Couple
+    </button>
+    <button onclick="goTo('moodtracker.html')">
+      <img src="17c39831804e285da818b3ed2de9f50c.jpg" alt="Mood" />
+      🧸 Mood Tracker
+    </button>
+    <button onclick="goTo('catatan.html')">
+      <img src="3260db78534a5f649d76567997e89f86.jpg" alt="Catatan" />
+      🗒️ Catatan Harian
+    </button>
+    <button onclick="goTo('birthday.html')">
+      <img src="94f1181d87f7c604c196d218b0ee0f25.jpg" alt="Birthday" />
+      🎂 Birthday Reminder
+    </button>
+  </div>
+
+  <audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2023/03/29/audio_4b47a730d5.mp3?filename=pop-up-kawaii-147043.mp3" preload="auto"></audio>
+
+  <script>
+    const clickSound = document.getElementById('clickSound');
+    function goTo(page) {
+      clickSound.play();
+      setTimeout(() => {
+        window.location.href = page;
+      }, 150);
+    }
+  </script>
+</body>
+</html>

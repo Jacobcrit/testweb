@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cari Lagu Cinta 🎶</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Patrick Hand', cursive;
+      background: linear-gradient(135deg, #ffe4f0, #fff0f5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #ff69b4;
+      margin: 20px 0;
+      font-size: 2rem;
+      text-shadow: 1px 1px 2px #fff;
+    }
+
+    .search-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: 2px solid #ffb6c1;
+      font-size: 16px;
+      outline: none;
+      width: 80%;
+      max-width: 400px;
+      background: #fff0f8;
+    }
+
+    button {
+      background: #ff69b4;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
+      transition: transform 0.2s;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    #hasilLagu {
+      width: 100%;
+      max-width: 600px;
+      margin-top: 10px;
+    }
+
+    .lagu-card {
+      background: #fff8fc;
+      border: 2px dashed #ffcce5;
+      border-radius: 25px;
+      padding: 15px;
+      margin: 15px auto;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 4px 8px rgba(255,182,193,0.3);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .lagu-card img {
+      width: 80px;
+      border-radius: 15px;
+    }
+
+    .lagu-card div {
+      text-align: left;
+    }
+
+    .lagu-card p {
+      margin: 4px 0;
+      color: #ff4081;
+    }
+
+    .save-btn {
+      background: #ffa3c9;
+      margin-top: 8px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .dekor {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      z-index: 0;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎧 Cari Lagu Cinta Kamu 💕</h1>
+  <img src="https://media.tenor.com/7lQ1xy-VfTUAAAAi/hello-kitty-cute.gif" class="dekor" />
+
+  <div class="search-box">
+    <input type="text" id="query" placeholder="Masukkan judul lagu yang ayang sukaa..." />
+    <button onclick="cariLagu()">Cari Lagu 💖</button>
+  </div>
+
+  <div id="hasilLagu"></div>
+
+  <audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2023/03/29/audio_4b47a730d5.mp3?filename=pop-up-kawaii-147043.mp3" preload="auto"></audio>
+
+  <script type="module">
+    import { db } from './firebase.js';
+    import {
+      collection,
+      addDoc
+    } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    const token = 'ISIKAN_TOKEN_SPOTIFY_DI_SINI_YA_SAYANGGG'; // Ganti token
+
+    const clickSound = document.getElementById('clickSound');
+
+    async function cariLagu() {
+      const query = document.getElementById("query").value;
+      const hasil = document.getElementById("hasilLagu");
+      hasil.innerHTML = "<p>Mencarii lagu lucu... 🎶</p>";
+      clickSound.play();
+
+      const res = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      hasil.innerHTML = "";
+
+      if (data.tracks?.items?.length) {
+        data.tracks.items.forEach(lagu => {
+          const card = document.createElement("div");
+          card.className = "lagu-card";
+          card.innerHTML = `
+            <img src="${lagu.album.images[0]?.url}" />
+            <div>
+              <p><b>${lagu.name}</b></p>
+              <p>${lagu.artists.map(a => a.name).join(', ')}</p>
+              <button class="save-btn" onclick='simpanLagu("${lagu.name}", "${lagu.artists[0].name}")'>Simpan Lagu Ini 💾</button>
+            </div>
+          `;
+          hasil.appendChild(card);
+        });
+      } else {
+        hasil.innerHTML = "<p>Gak ketemu sayangg 😭</p>";
+      }
+    }
+
+    window.simpanLagu = async function (judul, artis) {
+      try {
+        await addDoc(collection(db, "lagu-favorit"), {
+          judul: judul,
+          artis: artis,
+          waktu: new Date()
+        });
+        alert("Berhasil disimpan di scrapbook 💘");
+      } catch (e) {
+        alert("Gagal simpan: " + e.message);
+      }
+    };
+  </script>
+</body>
+</html>

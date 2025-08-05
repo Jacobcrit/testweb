@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>⏳ Countdown Ayang UwU 💞</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(135deg, #ffe6f0, #ffccdd, #ffeef6);
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 36px;
+      color: #ff5c9e;
+      margin-top: 20px;
+      text-shadow: 2px 2px #ffcce5;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 30px;
+      padding: 30px;
+      max-width: 500px;
+      margin: 30px auto;
+      box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+      border: 3px dashed #ffaacc;
+    }
+
+    input[type="date"] {
+      padding: 12px;
+      border-radius: 20px;
+      border: 2px solid #ffc2d1;
+      background-color: #fff0f6;
+      font-family: 'Comic Neue', cursive;
+      font-size: 16px;
+      width: 70%;
+    }
+
+    button {
+      padding: 12px 25px;
+      border-radius: 25px;
+      background: linear-gradient(to right, #ff8ec4, #ffc4dd);
+      color: white;
+      font-family: 'Comic Neue', cursive;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #countdownResult {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #d63384;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .hello-kitty {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      width: 100px;
+      z-index: 1;
+    }
+
+    .love {
+      position: absolute;
+      animation: float 5s linear infinite;
+      color: pink;
+      font-size: 24px;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-600px) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>💗 Countdown Hari Spesial Kita 💗</h1>
+
+  <div class="container">
+    <p>Pilih tanggalnya yaa ayangg 🥺💕</p>
+    <input type="date" id="specialDate">
+    <br>
+    <button onclick="calculateCountdown()">Hitung Countdown 🎀</button>
+    <div id="countdownResult"></div>
+  </div>
+
+  <img src="https://i.pinimg.com/originals/39/df/88/39df88dc3b46c210d6d9f465423749ee.gif" class="hello-kitty" alt="Hello Kitty UwU">
+
+  <script>
+    function calculateCountdown() {
+      const input = document.getElementById("specialDate").value;
+      const result = document.getElementById("countdownResult");
+
+      if (!input) {
+        result.innerHTML = "Masukin dulu dong tanggal spesial kita 😖✨";
+        return;
+      }
+
+      const now = new Date();
+      const specialDate = new Date(input);
+      const timeDiff = specialDate - now;
+
+      if (timeDiff <= 0) {
+        result.innerHTML = "Waktunya rayakan hari spesial kitaaa 🥳💘";
+        return;
+      }
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      result.innerHTML = `Tinggal ${days} hari lagi menuju hari penuh cinta kitaa 💞💫`;
+    }
+
+    // Love bubble animation
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("love");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.innerText = "💕";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 600);
+  </script>
+</body>
+</html>

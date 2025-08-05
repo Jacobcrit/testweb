@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎂 Birthday Reminder Ayang 💖</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #ffe4ec, #ffb6c1);
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff69b4;
+      font-size: 36px;
+      margin-top: 20px;
+      text-shadow: 2px 2px #ffc0cb;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 30px;
+      padding: 30px;
+      max-width: 500px;
+      margin: 30px auto;
+      box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+      border: 3px dashed #ff69b4;
+    }
+    input[type="date"] {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 20px;
+      width: 80%;
+      margin: 10px 0;
+      border: 2px solid #ffb6c1;
+      background: #fff0f5;
+    }
+    button {
+      padding: 12px 25px;
+      border-radius: 25px;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: white;
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .reminder {
+      margin-top: 20px;
+      color: #ff69b4;
+      font-size: 20px;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .heart {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: 80px;
+      animation: heart 3s infinite;
+    }
+    @keyframes heart {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Birthday Reminder Ayang 💖</h1>
+  
+  <div class="container">
+    <p>Masukkan tanggal ulang tahun Ayang 💖</p>
+    <input type="date" id="birthdayDate" />
+    <br>
+    <button onclick="setReminder()">Simpan Ulang Tahun</button>
+    
+    <div class="reminder" id="reminderMessage"></div>
+  </div>
+
+  <!-- Animated Heart -->
+  <img src="https://i.pinimg.com/originals/88/ba/3d/88ba3d1e3f05b9cf78496eb39624f29b.gif" class="heart" alt="Love Heart">
+
+  <script type="module">
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwhuuoF7HVMFK9QDlXmQn5SxBnQEdSCg0",
+      authDomain: "scrapbook-cinta-kita.firebaseapp.com",
+      projectId: "scrapbook-cinta-kita",
+      storageBucket: "scrapbook-cinta-kita.appspot.com",
+      messagingSenderId: "85785615120",
+      appId: "1:85785615120:web:7abd9532115674d8832395"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    let currentUser = null;
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        currentUser = user;
+        getBirthdayReminder();
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    function setReminder() {
+      const birthday = document.getElementById("birthdayDate").value;
+      if (!birthday) return;
+
+      const userRef = doc(db, "users", currentUser.uid);
+
+      setDoc(userRef, {
+        birthday: birthday
+      }, { merge: true });
+
+      alert("Tanggal ulang tahun ayang sudah tersimpan 💖");
+    }
+
+    async function getBirthdayReminder() {
+      const userRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(userRef);
+      if (docSnap.exists()) {
+        const birthday = docSnap.data().birthday;
+        if (birthday) {
+          const today = new Date();
+          const birthDate = new Date(birthday);
+          const timeDiff = birthDate - today;
+
+          if (timeDiff <= 86400000) {
+            document.getElementById("reminderMessage").innerText = `Besok adalah hari spesial Ayang! 🥳💖`;
+          } else {
+            document.getElementById("reminderMessage").innerText = `Tunggu-tunggu! Ulang tahun Ayang ada di: ${birthday}`;
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>

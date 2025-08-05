@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Yuk Ayang 💗</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(-45deg, #ffdde1, #fcb7d4, #f9c6e4, #ffe0f0);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 25px;
+      box-shadow: 0 8px 20px rgba(255,182,193,0.3);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .container img {
+      width: 90px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      color: #f06292;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 10px 0;
+      border: 2px solid #ffc0cb;
+      border-radius: 12px;
+      font-family: 'Fredoka', sans-serif;
+      background-color: #fff0f5;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      background: #ff69b4;
+      color: white;
+      border-radius: 25px;
+      font-size: 16px;
+      font-family: 'Fredoka', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255,105,180,0.3);
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #ff85c1;
+    }
+
+    p {
+      margin-top: 15px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    a {
+      color: #ff69b4;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://media.tenor.com/0AVoq2r7KZQAAAAi/hello-kitty-cute.gif" alt="Hello Kitty lucu" />
+    <h2>Login Yuk Ayangg 💕</h2>
+    <input type="email" id="email" placeholder="Email Ayang 💌" />
+    <input type="password" id="password" placeholder="Password Rahasia 🔐" />
+    <button onclick="login()">Masuk Scrapbook</button>
+    <p>Belum punya akun? <a href="register.html">Daftar Yuk!</a></p>
+  </div>
+
+  <script type="module">
+    import { auth } from './firebase.js';
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+    async function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "scrapbook.html";
+      } catch (error) {
+        alert("Gagal login: " + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
